@@ -1,2 +1,2 @@
-# pokemon-management
-Pokemon management app made with Express, EJS and PostgreSQL. 
+# HSR-management
+HSR (Honkai Star Rail) management app made with Express, EJS and PostgreSQL. 
