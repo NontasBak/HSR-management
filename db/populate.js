@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS locations (
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: `postgresql://${process.env.ROLE_USER}:${process.env.ROLE_PASSWORD}@localhost:5432/top_users`,
+    connectionString: `postgresql://${process.env.ROLE_USER}:${process.env.ROLE_PASSWORD}@localhost:5432/hsr_management`,
   });
   await client.connect();
   await client.query(SQL);
