@@ -5,14 +5,13 @@ require("dotenv").config();
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS characters (
-  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR ( 255 ),
-  element VARCHAR ( 255 ),
-  path VARCHAR ( 255 ),
-  location_id INTEGER
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR ( 255 ),
+    element VARCHAR ( 255 ),
+    path_id INTEGER REFERENCES path ( id )
 );
 
-CREATE TABLE IF NOT EXISTS locations (
+CREATE TABLE IF NOT EXISTS path (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name VARCHAR ( 255 )
 );
