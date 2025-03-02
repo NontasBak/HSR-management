@@ -1,0 +1,5 @@
+<div class="paths-container">
+    <% paths.filter(path => path.text !== "").map((path) => { %>
+    <a href="/paths/<%= path.text %>" class="path"><%= path.text %></a>
+    <% }) %>
+</div>

@@ -1,0 +1,12 @@
+<div class="character-container">
+    <% characters.filter(character => character.image !== "").map((character) => { %>
+    <a href="/paths/<%= character.text %>/characters/<%= character.id %>" class="character">
+        <img
+            src="<%= character.image %>"
+            alt="<%= character.name %>"
+            onerror="this.src='https://placehold.co/374x512?text=No+Image';this.onerror='';"
+        />
+        <h3><%= character.name %></h3>
+    </a>
+    <% }) %>
+</div>

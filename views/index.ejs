@@ -16,23 +16,8 @@
         <div class="content-container">
             <h1 class="title">HSR Database</h1>
             <main>
-                <div class="paths-container">
-                    <% paths.filter(path => path.text !== "").map((path) => { %>
-                    <a href="/paths/<%= path.text %>" class="path"><%= path.text %></a>
-                    <% }) %>
-                </div>
-                <div class="character-container">
-                    <% characters.filter(character => character.image !== "").map((character) => { %>
-                    <a href="/paths/<%= character.text %>/characters/<%= character.id %>" class="character">
-                        <img
-                            src="<%= character.image %>"
-                            alt="<%= character.name %>"
-                            onerror="this.src='https://placehold.co/374x512?text=No+Image';this.onerror='';"
-                        />
-                        <h3><%= character.name %></h3>
-                    </a>
-                    <% }) %>
-                </div>
+                <%- include('sidebar', {paths: paths}) %>
+                <%- include('characters', {characters: characters}) %>
             </main>
         </div>
     </body>
