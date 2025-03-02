@@ -14,11 +14,11 @@
     </head>
     <body>
         <div class="content-container">
-            <h1>HSR Database</h1>
+            <h1 class="title">HSR Database</h1>
             <main>
-                <div class="paths">
-                    <% paths.map((path) => { %>
-                    <a href="/paths/<%= path.text %>"><%= path.text %></a>
+                <div class="paths-container">
+                    <% paths.filter(path => path.text !== "").map((path) => { %>
+                    <a href="/paths/<%= path.text %>" class="path"><%= path.text %></a>
                     <% }) %>
                 </div>
                 <div class="character-container">
