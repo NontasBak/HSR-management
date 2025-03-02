@@ -2,7 +2,10 @@ const pool = require("./pool");
 
 async function getCharacters() {
     const { rows } = await pool.query(
-        "SELECT * FROM characters JOIN path ON characters.path_id = path.id"
+        `SELECT characters.id, characters.name, characters.element, 
+                characters.path_id, characters.image, path.text 
+         FROM characters 
+         JOIN path ON characters.path_id = path.id`
     );
     return rows;
 }
