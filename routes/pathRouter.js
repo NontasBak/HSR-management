@@ -1,12 +1,11 @@
 const { Router } = require("express");
+const { getPathPage } = require("../controllers/pathController");
 
 const pathRouter = Router();
 
-pathRouter.get("/:pathId", (req, res) => {
-    res.send(`Hello, ${req.params.pathId}!`);
-});
+pathRouter.get("/:pathName", getPathPage);
 
-pathRouter.get("/:pathId/characters/:characterId", (req, res) => {
+pathRouter.get("/:pathName/characters/:characterId", (req, res) => {
     res.send(`Hello, ${req.params.characterId}!`);
 });
 

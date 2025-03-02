@@ -1,14 +1,18 @@
 const db = require("../db/queries");
 
-async function getCharactersAndPaths(req, res) {
-    const characters = await db.getCharacters();
-
-    const paths = await db.getPaths();
-    // console.log(paths);
-
-    console.log(characters);
-
-    res.render("index", { characters, paths });
+async function getPaths(req, res) {
+    return await db.getPaths();
 }
 
-module.exports = { getCharactersAndPaths };
+async function getCharacters(req, res) {
+    return await db.getCharacters();
+}
+
+async function getIndexPage(req, res) {
+    const characters = await db.getCharacters();
+    const paths = await db.getPaths();
+    const pathName = null;
+    res.render("index", { characters, paths, pathName });
+}
+
+module.exports = { getIndexPage };
