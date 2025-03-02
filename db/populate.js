@@ -65,7 +65,7 @@ async function getPaths() {
 
 async function getCharacters() {
     const BASE_IMAGE_URL =
-        "https://vizualabstract.github.io/StarRailStaticAPI/assets/image/character_portrait";
+        "https://vizualabstract.github.io/StarRailStaticAPI/assets/image/character_preview";
     const response = await axios.get(
         "https://vizualabstract.github.io/StarRailStaticAPI/db/en/characters.json"
     );
@@ -79,8 +79,11 @@ async function getCharacters() {
         await client.connect();
 
         for (const [key, character] of Object.entries(data)) {
-            if(character.name == "{NICKNAME}") {
-                character.name = character.tag.startsWith("playergirl") ? "Stelle" : "Caelus";
+            if (character.name == "{NICKNAME}") {
+                if (character.element == "Imaginary") continue;
+                character.name = character.tag.startsWith("playergirl")
+                    ? "Stelle"
+                    : "Caelus";
             }
             const query = {
                 text: "INSERT INTO characters (name, element, path_id, image) VALUES ($1, $2, $3, $4)",

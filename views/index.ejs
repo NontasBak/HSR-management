@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HSR Database</title>
+        <link rel="stylesheet" href="/reset.css" />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="content-container">
+            <h1>HSR Database</h1>
+            <main>
+                <div class="paths">
+                    <% paths.map((path) => { %>
+                    <a href="/paths/<%= path.text %>"><%= path.text %></a>
+                    <% }) %>
+                </div>
+                <div class="character-container">
+                    <% characters.filter(character => character.image !== "").map((character) => { %>
+                    <div class="character">
+                        <img
+                            src="<%= character.image %>"
+                            alt="<%= character.name %>"
+                            onerror="this.src='https://placehold.co/374x512?text=No+Image';this.onerror='';"
+                        />
+                        <h3><%= character.name %></h3>
+                    </div>
+                    <% }) %>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
