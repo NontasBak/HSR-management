@@ -21,7 +21,9 @@ async function createDB() {
                 name VARCHAR ( 255 ),
                 element VARCHAR ( 255 ),
                 path_id VARCHAR ( 255 ) REFERENCES path ( id ),
-                image VARCHAR ( 255 )
+                image VARCHAR ( 255 ),
+                image_full VARCHAR ( 255 ),
+                rarity INTEGER
             );
         `;
 
@@ -36,7 +38,7 @@ async function createDB() {
 
 async function getPaths() {
     const response = await axios.get(
-        "https://vizualabstract.github.io/StarRailStaticAPI/db/en/paths.json"
+        "https://aiko-chan-ai.github.io/StarRailRes/index_new/en/paths.json"
     );
     const data = await response.data;
 
@@ -65,9 +67,11 @@ async function getPaths() {
 
 async function getCharacters() {
     const BASE_IMAGE_URL =
-        "https://vizualabstract.github.io/StarRailStaticAPI/assets/image/character_preview";
+        "https://aiko-chan-ai.github.io/StarRailRes/image/character_preview";
+    const BASE_IMAGE_URL_FULL =
+        "https://aiko-chan-ai.github.io/StarRailRes/image/character_portrait";
     const response = await axios.get(
-        "https://vizualabstract.github.io/StarRailStaticAPI/db/en/characters.json"
+        "https://aiko-chan-ai.github.io/StarRailRes/index_new/en/characters.json"
     );
     const data = await response.data;
 
@@ -80,18 +84,19 @@ async function getCharacters() {
 
         for (const [key, character] of Object.entries(data)) {
             if (character.name == "{NICKNAME}") {
-                if (character.element == "Imaginary") continue;
                 character.name = character.tag.startsWith("playergirl")
                     ? "Stelle"
                     : "Caelus";
             }
             const query = {
-                text: "INSERT INTO characters (name, element, path_id, image) VALUES ($1, $2, $3, $4)",
+                text: "INSERT INTO characters (name, element, path_id, image, image_full, rarity) VALUES ($1, $2, $3, $4, $5, $6)",
                 values: [
                     character.name,
                     character.element,
                     character.path,
                     `${BASE_IMAGE_URL}/${character.id}.png`,
+                    `${BASE_IMAGE_URL_FULL}/${character.id}.png`,
+                    character.rarity,
                 ],
             };
 
