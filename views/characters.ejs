@@ -1,6 +1,6 @@
 <div class="character-container">
     <% characters.filter(character => character.image !== "").map((character) => { %>
-    <a href="/paths/<%= character.text %>/characters/<%= character.id %>" class="character">
+    <a href="/characters/<%= character.id %>" class="character">
         <img
             src="<%= character.image %>"
             alt="<%= character.name %>"

@@ -5,8 +5,4 @@ const pathRouter = Router();
 
 pathRouter.get("/:pathName", getPathPage);
 
-pathRouter.get("/:pathName/characters/:characterId", (req, res) => {
-    res.send(`Hello, ${req.params.characterId}!`);
-});
-
 module.exports = pathRouter;

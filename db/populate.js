@@ -23,7 +23,8 @@ async function createDB() {
                 path_id VARCHAR ( 255 ) REFERENCES path ( id ),
                 image VARCHAR ( 255 ),
                 image_full VARCHAR ( 255 ),
-                rarity INTEGER
+                rarity INTEGER,
+                description TEXT
             );
         `;
 
@@ -70,10 +71,16 @@ async function getCharacters() {
         "https://aiko-chan-ai.github.io/StarRailRes/image/character_preview";
     const BASE_IMAGE_URL_FULL =
         "https://aiko-chan-ai.github.io/StarRailRes/image/character_portrait";
+
     const response = await axios.get(
         "https://aiko-chan-ai.github.io/StarRailRes/index_new/en/characters.json"
     );
     const data = await response.data;
+
+    const descriptionsResponse = await axios.get(
+        "https://aiko-chan-ai.github.io/StarRailRes/index_new/en/descriptions.json"
+    );
+    const descriptionsData = await descriptionsResponse.data;
 
     const client = new Client({
         connectionString: `postgresql://${process.env.ROLE_NAME}:${process.env.ROLE_PASSWORD}@localhost:5432/hsr_management`,
@@ -83,13 +90,27 @@ async function getCharacters() {
         await client.connect();
 
         for (const [key, character] of Object.entries(data)) {
+            let characterDescription = "";
+            for (const [keyDesc, characterDesc] of Object.entries(
+                descriptionsData
+            )) {
+                if (
+                    character.name.includes(characterDesc.title) ||
+                    characterDesc.title.includes(character.name)
+                ) {
+                    characterDescription = characterDesc.desc;
+                    break;
+                }
+            }
             if (character.name == "{NICKNAME}") {
-                character.name = character.tag.startsWith("playergirl")
-                    ? "Stelle"
-                    : "Caelus";
+                const isGirl = character.tag.startsWith("playergirl");
+                character.name = isGirl ? "Stelle" : "Caelus";
+                characterDescription = isGirl
+                    ? "A girl who boarded the Astral Express. She chose to travel with the Astral Express to eliminate the dangers posed by the Stellaron."
+                    : "A guy who boarded the Astral Express. He chose to travel with the Astral Express to eliminate the dangers posed by the Stellaron.";
             }
             const query = {
-                text: "INSERT INTO characters (name, element, path_id, image, image_full, rarity) VALUES ($1, $2, $3, $4, $5, $6)",
+                text: "INSERT INTO characters (name, element, path_id, image, image_full, rarity, description) VALUES ($1, $2, $3, $4, $5, $6, $7)",
                 values: [
                     character.name,
                     character.element,
@@ -97,6 +118,7 @@ async function getCharacters() {
                     `${BASE_IMAGE_URL}/${character.id}.png`,
                     `${BASE_IMAGE_URL_FULL}/${character.id}.png`,
                     character.rarity,
+                    characterDescription,
                 ],
             };
 

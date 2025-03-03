@@ -6,7 +6,6 @@ async function getPathPage(req, res) {
         .split("-")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-    console.log(pathName);
 
     const characters = await db.getPathCharacters(pathName);
     const paths = await db.getPaths();
