@@ -29,6 +29,7 @@ body {
     font-size: 2.3rem;
     border-bottom: 2px solid rgba(255, 255, 255, 0.7);
     padding: 0.7rem;
+    text-align: center;
 }
 
 .character-details-container img {
@@ -60,15 +61,47 @@ body {
     border: none;
     background: none;
     padding: 0.5rem;
-    margin-left: 2rem;
-    margin-top: 1rem;
+    /* margin-left: 2rem;
+    margin-top: 1rem; */
     cursor: pointer;
     background-color: rgb(39, 39, 39);
     color: white;
     border-radius: 0.5rem;
+    position: fixed;
+    top: 0.7rem;
+    left: 0.7rem;
 }
 
 .description {
     font-size: 1.2rem;
     text-align: justify;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.buttons-container button {
+    text-decoration: none;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.edit {
+    background-color: rgb(38, 38, 38);
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.delete {
+    background-color: rgb(157, 53, 53);
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
 }
