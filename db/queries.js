@@ -15,6 +15,13 @@ async function getPaths() {
     return rows;
 }
 
+async function getElements() {
+    const { rows } = await pool.query(
+        "SELECT DISTINCT element FROM characters"
+    );
+    return rows;
+}
+
 async function getPathCharacters(pathName) {
     const { rows } = await pool.query(
         `SELECT characters.id, characters.name,
@@ -28,8 +35,6 @@ async function getPathCharacters(pathName) {
 }
 
 async function getCharacterDetails(characterId) {
-    const id = parseInt(characterId);
-    console.log("logging:", id);
     const { rows } = await pool.query(
         `SELECT characters.name, characters.element,
                 characters.image_full,
@@ -39,9 +44,28 @@ async function getCharacterDetails(characterId) {
          FROM characters 
          JOIN path ON characters.path_id = path.id 
          WHERE characters.id = $1`,
-        [id]
+        [characterId]
     );
     return rows[0];
 }
 
-module.exports = { getCharacters, getPaths, getPathCharacters, getCharacterDetails };
+async function updateCharacter(characterId, name, path, element, rarity, description) {
+    const { rows } = await pool.query(`SELECT id FROM path WHERE text = $1`, [path]);
+    const pathId = rows[0].id;
+
+    await pool.query(
+        `UPDATE characters 
+         SET name = $1, path_id = $2, element = $3, rarity = $4, description = $5 
+         WHERE id = $6`,
+        [name, pathId, element, rarity, description, characterId]
+    );
+}
+
+module.exports = {
+    getCharacters,
+    getPaths,
+    getPathCharacters,
+    getCharacterDetails,
+    getElements,
+    updateCharacter,
+};

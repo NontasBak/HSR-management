@@ -2,14 +2,14 @@
 <div class="form-popup">
     <div class="top-bar-container">
         <h3>Edit Character:</h3>
-        <button class="cancel" onclick="history.back()">
+        <a class="cancel" href="/characters/<%= characterDetails.id %>">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="currentColor"
+                stroke="black"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -18,8 +18,15 @@
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />
             </svg>
-        </button>
+        </a>
     </div>
+    <% if (locals.errors) { %>
+    <ul class="error-list">
+        <% errors.forEach((error) => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+    <% } %>
     <form
         action="/characters/<%= characterDetails.id %>/edit"
         method="POST"
