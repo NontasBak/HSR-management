@@ -3,11 +3,10 @@
 const { Client } = require("pg");
 require("dotenv").config();
 const axios = require("axios");
+const { dbConfig } = require("./config");
 
 async function createDB() {
-    const client = new Client({
-        connectionString: `postgresql://${process.env.ROLE_NAME}:${process.env.ROLE_PASSWORD}@localhost:5432/hsr_management`,
-    });
+    const client = new Client(dbConfig);
 
     try {
         const SQL = `
@@ -43,9 +42,7 @@ async function getPaths() {
     );
     const data = await response.data;
 
-    const client = new Client({
-        connectionString: `postgresql://${process.env.ROLE_NAME}:${process.env.ROLE_PASSWORD}@localhost:5432/hsr_management`,
-    });
+    const client = new Client(dbConfig);
 
     try {
         await client.connect();
@@ -82,9 +79,7 @@ async function getCharacters() {
     );
     const descriptionsData = await descriptionsResponse.data;
 
-    const client = new Client({
-        connectionString: `postgresql://${process.env.ROLE_NAME}:${process.env.ROLE_PASSWORD}@localhost:5432/hsr_management`,
-    });
+    const client = new Client(dbConfig);
 
     try {
         await client.connect();
