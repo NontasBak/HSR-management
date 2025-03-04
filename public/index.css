@@ -31,6 +31,12 @@
     text-align: center;
     border-radius: 0.5rem;
     border: 2px solid white;
+
+    transition: background-color 0.2s ease;
+}
+
+.path:hover {
+    background-color: #cdd4e5;
 }
 
 .content-container {
@@ -65,6 +71,12 @@ main {
     border-radius: 10px;
     background-color: #f5f5f5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    transition: background-color 0.2s ease;
+}
+
+.character:hover {
+    background-color: #e3e3e3;
 }
 
 .character h3 {
@@ -79,12 +91,19 @@ main {
 
 .active {
     border: 2px solid #282267;
+    background-color: #cdd4e5;
 }
 
 .all-paths {
     background-color: #6f2129;
     color: white;
     border: 2px solid black;
+
+    transition: background-color 0.2s ease;
+}
+
+.all-paths:hover {
+    background-color: #8f3139;
 }
 
 @media (max-width: 600px) {
