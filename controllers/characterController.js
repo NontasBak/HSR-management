@@ -13,7 +13,10 @@ async function getEditForm(req, res) {
     const characterDetails = await db.getCharacterDetails(
         req.params.characterId
     );
-    res.render("characterEditPage", { characterDetails });
+    const paths = await db.getPaths();
+    const elements = await db.getElements();
+
+    res.render("characterEditPage", { characterDetails, paths, elements });
 }
 
 const editCharacterValidators = [
@@ -29,8 +32,7 @@ const editCharacterValidators = [
         .notEmpty()
         .trim()
         .custom(async (value) => {
-            const paths = await db.getPaths();
-            const validPaths = paths.map((path) => path.text);
+            const validPaths = await db.getPaths();
             if (!validPaths.includes(value)) {
                 throw new Error("Path must be one of the valid paths");
             }
@@ -41,8 +43,7 @@ const editCharacterValidators = [
         .notEmpty()
         .trim()
         .custom(async (value) => {
-            const elements = await db.getElements();
-            const validElements = elements.map((element) => element.element);
+            const validElements = await db.getElements();
             if (!validElements.includes(value)) {
                 throw new Error("Element must be one of the valid elements");
             }
@@ -76,8 +77,13 @@ async function updateCharacter(req, res) {
         const characterDetails = await db.getCharacterDetails(
             req.params.characterId
         );
+        const paths = await db.getPaths();
+        const elements = await db.getElements();
+
         return res.status(400).render("characterEditPage", {
             characterDetails,
+            paths,
+            elements,
             errors: errors.array(),
         });
     }

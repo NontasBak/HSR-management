@@ -1,9 +1,9 @@
 <div class="paths-container">
-    <% paths.filter(path => path.text !== "").map((path) => { %>
+    <% paths.forEach((path) => { %>
     <a
-        href="/paths/<%= path.text.toLowerCase().replace(/\s+/g, '-') %>"
-        class="path <% if (path.text === pathName) { %>active<% } %>"
-        ><%= path.text %>
+        href="/paths/<%= path.toLowerCase().replace(/\s+/g, '-') %>"
+        class="path <% if (path === pathName) { %>active<% } %>"
+        ><%= path %>
     </a>
     <% }) %> <% if (pathName) { %>
     <a href="/" class="path all-paths">All Paths</a>

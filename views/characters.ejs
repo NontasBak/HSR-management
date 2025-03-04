@@ -1,5 +1,5 @@
 <div class="character-container">
-    <% characters.filter(character => character.image !== "").map((character) => { %>
+    <% characters.map((character) => { %>
     <a href="/characters/<%= character.id %>" class="character">
         <img
             src="<%= character.image %>"

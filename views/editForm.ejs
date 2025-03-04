@@ -43,21 +43,19 @@
         </div>
         <div class="form-container">
             <label for="characterPath">Path:</label>
-            <input
-                type="text"
-                name="characterPath"
-                id="characterPath"
-                value="<%= characterDetails.text %>"
-            />
+            <select name="characterPath" id="characterPath">
+                <% paths.forEach(path => { %>
+                    <option value="<%= path %>" <%= characterDetails.path === path ? 'selected' : '' %>><%= path %></option>
+                <% }) %>
+            </select>
         </div>
         <div class="form-container">
             <label for="characterElement">Element:</label>
-            <input
-                type="text"
-                name="characterElement"
-                id="characterElement"
-                value="<%= characterDetails.element %>"
-            />
+            <select name="characterElement" id="characterElement">
+                <% elements.forEach(element => { %>
+                    <option value="<%= element %>" <%= characterDetails.element === element ? 'selected' : '' %>><%= element %></option>
+                <% }) %>
+            </select>
         </div>
         <div class="form-container">
             <label for="characterRarity">Rarity:</label>

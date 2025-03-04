@@ -12,14 +12,14 @@ async function getCharacters() {
 
 async function getPaths() {
     const { rows } = await pool.query("SELECT text FROM path");
-    return rows;
+    return rows.filter((row) => row.text !== '').map((row) => row.text);
 }
 
 async function getElements() {
     const { rows } = await pool.query(
         "SELECT DISTINCT element FROM characters"
     );
-    return rows;
+    return rows.map((row) => row.element);
 }
 
 async function getPathCharacters(pathName) {

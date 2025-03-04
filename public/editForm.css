@@ -25,7 +25,8 @@
     gap: 1.5rem;
 }
 
-.top-bar-container, .bottom-container {
+.top-bar-container,
+.bottom-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,7 +88,8 @@ textarea {
 }
 
 .edit-form input,
-.edit-form textarea {
+.edit-form textarea,
+.edit-form select {
     padding: 0.5rem;
     border: 1px solid black;
     border-radius: 0.5rem;
