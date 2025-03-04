@@ -34,7 +34,8 @@ async function getCharacterDetails(characterId) {
         `SELECT characters.name, characters.element,
                 characters.image_full,
                 path.text, characters.rarity,
-                characters.description
+                characters.description,
+                characters.id
          FROM characters 
          JOIN path ON characters.path_id = path.id 
          WHERE characters.id = $1`,

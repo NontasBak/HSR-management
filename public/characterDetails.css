@@ -83,7 +83,7 @@ body {
     margin-top: 1rem;
 }
 
-.buttons-container button {
+.buttons-container a {
     text-decoration: none;
     border: none;
     padding: 0.4rem 0.7rem;
