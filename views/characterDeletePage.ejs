@@ -5,6 +5,7 @@
         <title>HSR Database</title>
         <link rel="stylesheet" href="/reset.css" />
         <link rel="stylesheet" href="/characterDetails.css" />
+        <link rel="stylesheet" href="/deletePopup.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -14,6 +15,6 @@
     </head>
     <body>
         <%- include("characterDetails", {characterDetails: characterDetails}) %>
-        <%- include("editForm", {characterDetails: characterDetails}) %>
+        <%- include("deleteConfirmation", {characterDetails: characterDetails}) %>
     </body>
 </html>

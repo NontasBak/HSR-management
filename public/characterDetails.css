@@ -20,14 +20,14 @@ body {
     margin: 1rem;
     width: min(100%, 900px);
     margin: 1rem auto;
-    padding: 1rem;
-    border: 2px solid rgb(207, 207, 207);
+    padding: 2rem;
+    border: 2px solid rgb(67, 67, 67);
     border-radius: 2rem;
 }
 
 .character-name {
     font-size: 2.3rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.7);
     padding: 0.7rem;
     text-align: center;
 }

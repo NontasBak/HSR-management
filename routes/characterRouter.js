@@ -3,9 +3,10 @@ const express = require("express");
 const {
     getCharacterInfo,
     getEditForm,
-    characterValidators,
+    editCharacterValidators,
     updateCharacter,
     getDeleteForm,
+    deleteCharacterValidators,
     deleteCharacter,
 } = require("../controllers/characterController");
 
@@ -15,9 +16,17 @@ characterRouter.use(express.urlencoded({ extended: true }));
 characterRouter.get("/:characterId", getCharacterInfo);
 
 characterRouter.get("/:characterId/edit", getEditForm);
-characterRouter.post("/:characterId/edit", characterValidators, updateCharacter);
+characterRouter.post(
+    "/:characterId/edit",
+    editCharacterValidators,
+    updateCharacter
+);
 
 characterRouter.get("/:characterId/delete", getDeleteForm);
-characterRouter.delete("/:characterId", deleteCharacter);
+characterRouter.post(
+    "/:characterId/delete",
+    deleteCharacterValidators,
+    deleteCharacter
+);
 
 module.exports = characterRouter;

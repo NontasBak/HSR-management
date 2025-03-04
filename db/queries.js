@@ -49,8 +49,17 @@ async function getCharacterDetails(characterId) {
     return rows[0];
 }
 
-async function updateCharacter(characterId, name, path, element, rarity, description) {
-    const { rows } = await pool.query(`SELECT id FROM path WHERE text = $1`, [path]);
+async function updateCharacter(
+    characterId,
+    name,
+    path,
+    element,
+    rarity,
+    description
+) {
+    const { rows } = await pool.query(`SELECT id FROM path WHERE text = $1`, [
+        path,
+    ]);
     const pathId = rows[0].id;
 
     await pool.query(
@@ -61,6 +70,10 @@ async function updateCharacter(characterId, name, path, element, rarity, descrip
     );
 }
 
+async function deleteCharacter(characterId) {
+    await pool.query(`DELETE FROM characters WHERE id = $1`, [characterId]);
+}
+
 module.exports = {
     getCharacters,
     getPaths,
@@ -68,4 +81,5 @@ module.exports = {
     getCharacterDetails,
     getElements,
     updateCharacter,
+    deleteCharacter,
 };

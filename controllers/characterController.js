@@ -16,7 +16,7 @@ async function getEditForm(req, res) {
     res.render("characterEditPage", { characterDetails });
 }
 
-const characterValidators = [
+const editCharacterValidators = [
     body("characterName")
         .notEmpty()
         .trim()
@@ -109,13 +109,37 @@ async function getDeleteForm(req, res) {
     res.render("characterDeletePage", { characterDetails });
 }
 
-async function deleteCharacter(req, res) {}
+const deleteCharacterValidators = [
+    body("password")
+        .notEmpty()
+        .withMessage("Password is required")
+        .equals(process.env.PASSWORD)
+        .withMessage("Incorrect password"),
+];
+
+async function deleteCharacter(req, res) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        const characterDetails = await db.getCharacterDetails(
+            req.params.characterId
+        );
+        return res.status(400).render("characterDeletePage", {
+            characterDetails,
+            errors: errors.array(),
+        });
+    }
+
+    await db.deleteCharacter(req.params.characterId);
+    res.redirect("/");
+}
 
 module.exports = {
     getCharacterInfo,
     getEditForm,
-    characterValidators,
+    editCharacterValidators,
     updateCharacter,
     getDeleteForm,
+    deleteCharacterValidators,
     deleteCharacter,
 };
